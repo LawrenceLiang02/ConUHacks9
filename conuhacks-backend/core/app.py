@@ -3,15 +3,19 @@ import requests
 import os
 import json
 from dotenv import load_dotenv
+from flask_cors import CORS  # Import CORS
 
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)
 
 API_KEY = os.getenv('API_KEY')
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
 FRIDGE_FILE = os.path.join(BASE_DIR, "fridge.txt")
 RECIPES_FILE = os.path.join(BASE_DIR, "recipes.json")
+
+ingredients__mock_list = ['apple', 'sugar', 'flour']
 
 recipesList = []
 fridge = []
@@ -29,13 +33,13 @@ def get_recipes_from_ingredients():
         if not ingredients:
             return jsonify({'error': 'No ingredients provided'}), 400
 
-        ingredients_string = ', '.join(ingredients)
+        ingredients_string = ', '.join(ingredients__mock_list)
 
         url = 'https://api.spoonacular.com/recipes/findByIngredients'
         params = {
             'apiKey': API_KEY,
             'ingredients': ingredients_string,
-            'number': 10,
+            'number': 5,
             'ranking': 1,
             'ignorePantry': True
         }
