@@ -1,0 +1,88 @@
+{
+  "store": "IGA",
+  "valid_dates": {
+    "start": "2025-01-30",
+    "end": "2025-02-05"
+  },
+  "categories": {
+    "frozen_and_prepared": {
+      "Ricardo frozen snacks or meal": "7.49",
+      "Pizza Pops": "3.49",
+      "Giuseppe frozen pizza": "6.99",
+      "Kozy Shack refrigerated pudding": "3.49",
+      "Frozen waffles (Kellogg's)": "5.99",
+      "Deep'n Delicious cake cups": "6.79",
+      "Chapman's frozen yogurt": "5.99",
+      "Arctic Gardens frozen vegetables (1.75kg)": "9.99"
+    },
+    "pantry": {
+      "Alfredo sauce (605-700mL)": "5.49",
+      "Hellmann's mayonnaise": "3.99",
+      "Tim Hortons soup (540mL)": "3.99",
+      "Hunt's pasta sauce": "2.49",
+      "Stefano pasta": "2.49",
+      "Canton fondue sauce (180mL)": "3.29",
+      "Campbell's tomato soup": "2.99",
+      "Ritz crackers": "4.49",
+      "Dunya Harvest chickpeas": "1.59",
+      "El-Ma-Mia seasoning": "3.99",
+      "Barilla gluten-free pasta": "3.29",
+      "Del Monte vegetables": "2.49",
+      "Veggie Crisps": "3.99",
+      "Melba toast": "3.99",
+      "Natural cream cheese product": "3.49",
+      "Minute Rice": "4.99",
+      "Knorr instant noodles": "2.99",
+      "Knorr sauce mix": "3/4.98",
+      "Knorr bouillon": "2.99",
+      "Knorr concentrated broth": "5.99",
+      "Knorr soup mix": "1.99"
+    },
+    "beverages": {
+      "Corona Extra (12x355mL)": "21.99",
+      "Eska natural spring water": "4.99",
+      "Gatorade Zero": "6.49",
+      "San Pellegrino sparkling drink": "7.99",
+      "Fuze iced tea (12x341mL)": "7.99",
+      "Fuze iced tea (10x200mL)": "3.99"
+    },
+    "snacks": {
+      "Tostitos tortilla chips or salsa": "2/9.00",
+      "Miss Vickie's chips": "2/9.00",
+      "Whippet cookies": "3.49",
+      "Pringles party size": "3.99",
+      "Town House crackers": "3.49",
+      "Kellogg's cereal": "3.99",
+      "Vector cereal": "4.49"
+    },
+    "meat_and_seafood": {
+      "Fresh chicken thighs": "25.00",
+      "Fresh chicken drumsticks": "18.00",
+      "Fresh sausages (1.4kg)": "15.00"
+    },
+    "dairy_and_cheese": {
+      "Brie double cream": "2.99/100g",
+      "Saputo Mozzarellissima (1kg)": "15.99",
+      "Compliments Swiss cheese slices": "10.49"
+    },
+    "produce": {
+      "Grape tomatoes (680g)": "6.99",
+      "Fresh black figs": "9.99",
+      "Hot peppers mix": "6.99",
+      "Whole white mushrooms (580g)": "8.99"
+    },
+    "snacks_and_treats": {
+      "Quaker Chewy bars": "13.99",
+      "Quaker Dipps": "13.99",
+      "Ferrero Rocher": "7.49",
+      "Lindt chocolate": "12.99",
+      "Chocolate treats": "5.19",
+      "Galentine treats": "3.49"
+    }
+  },
+  "notes": {
+    "membership": "Some prices require Scene+ membership card",
+    "tax_break": "TPS/GST tax break applies to selected items",
+    "availability": "Prices and availability may vary by location"
+  }
+}
