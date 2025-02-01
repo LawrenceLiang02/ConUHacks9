@@ -33,7 +33,7 @@ def get_recipes_from_ingredients():
         if not ingredients:
             return jsonify({'error': 'No ingredients provided'}), 400
 
-        ingredients_string = ', '.join(ingredients__mock_list)
+        ingredients_string = ', '.join(ingredients)
 
         url = 'https://api.spoonacular.com/recipes/findByIngredients'
         params = {
