@@ -168,8 +168,128 @@ def search_recipe():
     except requests.exceptions.RequestException as e:
         return jsonify({'error': str(e)}), 500
     
+
+@app.route('/recipes/searchByCuisine', methods=['GET'])
+def search_by_cuisine():
+    try:
+        cuisine = request.args.get('cuisine', '')  # Required cuisine parameter
+        number = request.args.get('number', 10, type=int)  # Optional number of recipes, default 10
+        diet = request.args.get('diet', '')  # Optional diet filter
+        type = request.args.get('type', '')  # Optional recipe type filter
+        intolerances = request.args.get('intolerances', '').split(',')  # Optional intolerances
+        
+        # Validate cuisine is provided
+        if not cuisine:
+            return jsonify({'error': 'Cuisine is required'}), 400
+        
+        url = 'https://api.spoonacular.com/recipes/complexSearch'
+        params = {
+            'apiKey': API_KEY,
+            'cuisine': cuisine,
+            'diet': diet,
+            'type': type,
+            'intolerances': ','.join([i.strip() for i in intolerances if i.strip()]),
+            'instructionsRequired': True,
+            'fillIngredients': True,
+            'addRecipeInformation': True,
+            'addRecipeNutrition': True,
+            'number': min(number, 100)  # Limit to 100 recipes max
+        }
+        
+        # Remove empty string parameters
+        params = {k: v for k, v in params.items() if v}
+        
+        response = requests.get(url, params=params)
+        response.raise_for_status()
+        return jsonify(response.json())
+    except requests.exceptions.RequestException as e:
+        return jsonify({'error': str(e)}), 500
+
+
+
 #TODO Get recipe by id
 #TODO Get top 5 recipes ->> search_recipe()
+@app.route('/recipes/topRecipesFromIngredients', methods=['GET'])
+def get_top_recipes_from_ingredients():
+    try:
+        cuisine = request.args.get('cuisine', '')
+        GROCERY_FILE = os.path.join(BASE_DIR, "simplified_results.json")
+        with open(GROCERY_FILE, 'r') as f:
+            grocery_data = json.load(f)
+
+        comestible_categories = [
+            'frozen_and_prepared', 
+            'pantry', 
+            'meat_and_seafood', 
+            'dairy_and_cheese', 
+            'produce', 
+            'snacks',
+            'snacks_and_treats'
+        ]
+        
+        # Extract ingredients
+        ingredients = []
+        for category in comestible_categories:
+            if category in grocery_data['categories']:
+                for item in grocery_data['categories'][category].keys():
+                    # Clean the ingredient name
+                    cleaned_item = re.sub(r'\(.*?\)', '', item).lower().strip()
+                    
+                    # Split multi-word items and clean individual words
+                    ingredient_words = cleaned_item.split()
+                    
+                    for word in ingredient_words:
+                        # Filter out non-food words and very short words
+                        if (len(word) > 2 and 
+                            word not in ['the', 'and', 'or', 'mix', 'size', 'fresh'] and
+                            not word.isdigit()):
+                            ingredients.append(word)
+        
+        ingredients = list(dict.fromkeys(ingredients))
+        
+        # Limit to a reasonable number of ingredients
+        ingredients = ingredients[:20]
+        
+        specific_ingredients = [
+            # 'chicken', 'pasta', 'tomato', 'cheese', 
+            # 'salmon', 'pizza', 'vegetables', 'noodles'
+        ]
+        
+        # Use complexSearch instead of findByIngredients
+        url = 'https://api.spoonacular.com/recipes/complexSearch'
+        params = {
+            'apiKey': API_KEY,
+            'ingredients': ', '.join(specific_ingredients),
+            'cuisine': cuisine,  # Optional cuisine filter
+            'instructionsRequired': True,
+            'fillIngredients': True,
+            'addRecipeInformation': True,
+            'number': 3,  # Top 5 recipes
+        }
+        
+        # Remove any empty parameters
+        params = {k: v for k, v in params.items() if v}
+        
+        # Print request parameters
+        print("API Request Params:", params)
+        
+        response = requests.get(url, params=params)
+        response.raise_for_status()
+        
+        # Print full response for debugging
+        response_data = response.json()
+        print("Full Response:", response_data)
+        
+        # Return the recipes
+        return jsonify(response_data)
+    
+    except requests.exceptions.RequestException as e:
+        print(f"Request Error: {e}")
+        return jsonify({'error': str(e)}), 500
+    except Exception as e:
+        print(f"Unexpected Error: {e}")
+        return jsonify({'error': str(e)}), 500
+
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,0 +1,99 @@
+{
+  "store": "IGA",
+  "valid_dates": {
+    "start": "2025-01-30",
+    "end": "2025-02-05"
+  },
+  "categories": {
+    "frozen_and_prepared": {
+      "frozen snacks or meal": "7.49",
+      "pizza pops": "3.49",
+      "frozen pizza": "6.99",
+      "refrigerated pudding": "3.49",
+      "frozen waffles": "5.99",
+      "cake cups": "6.79",
+      "frozen yogurt": "5.99",
+      "frozen vegetables": "9.99",
+      "frozen snacks": "7.49",
+      "frozen meal": "7.49"
+    },
+    "pantry": {
+      "Alfredo sauce (605-700mL)": "5.49",
+      "mayonnaise": "3.99",
+      "soup (540mL)": "3.99",
+      "pasta sauce": "2.49",
+      "pasta": "2.49",
+      "fondue sauce (180mL)": "3.29",
+      "tomato soup": "2.99",
+      "crackers": "4.49",
+      "chickpeas": "1.59",
+      "seasoning": "3.99",
+      "gluten-free pasta": "3.29",
+      "vegetables": "2.49",
+      "Veggie Crisps": "3.99",
+      "toast": "3.99",
+      "cream cheese product": "3.49",
+      "Rice": "4.99",
+      "instant noodles": "2.99",
+      "sauce mix": "3/4.98",
+      "bouillon": "2.99",
+      "concentrated broth": "5.99",
+      "soup mix": "1.99",
+      "cream cheese": "3.49"
+    },
+    "beverages": {
+      "Extra (12x355mL)": "21.99",
+      "natural spring water": "4.99",
+      "Zero": "6.49",
+      "sparkling drink": "7.99",
+      "iced tea (12x341mL)": "7.99",
+      "iced tea (10x200mL)": "3.99",
+      "beer (12x355mL)": "2/44.00"
+    },
+    "snacks": {
+      "tortilla chips or salsa": "2/9.00",
+      "chips": "2/9.00",
+      "cookies": "3.49",
+      "party size": "3.99",
+      "crackers": "3.49",
+      "cereal": "3.99",
+      "cereal": "4.49"
+    },
+    "meat_and_seafood": {
+      "Fresh chicken thighs": "25.00",
+      "Fresh chicken drumsticks": "18.00",
+      "Fresh sausages (1.4kg)": "15.00",
+      "Fresh Atlantic salmon fillet": "35.00"
+    },
+    "dairy_and_cheese": {
+      "double cream": "2.99/100g",
+      "Mozzarellissima (1kg)": "15.99",
+      "Swiss cheese slices": "10.49"
+    },
+    "produce": {
+      "Grape tomatoes (680g)": "6.99",
+      "Fresh black figs": "9.99",
+      "Hot peppers mix": "6.99",
+      "Whole white mushrooms (580g)": "8.99"
+    },
+    "snacks_and_treats": {
+      "Chewy bars": "13.99",
+      "Dipps": "13.99",
+      "Rocher": "7.49",
+      "chocolate": "12.99",
+      "Chocolate treats": "5.19",
+      "Galentine treats": "3.49"
+    },
+    "household": {
+      "Sponge towels": "14.99",
+      "Fleecy fabric softener": "5.49",
+      "Lysol disinfecting wipes": "5.99",
+      "Cat treats": "6.99"
+    }
+  },
+  "notes": {
+    "membership": "Some prices require Scene+ membership card",
+    "tax_break": "TPS/GST tax break applies to selected items",
+    "availability": "Prices and availability may vary by location"
+  }
+}
