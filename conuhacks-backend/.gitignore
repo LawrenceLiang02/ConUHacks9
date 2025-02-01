@@ -3,6 +3,11 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+/flyer
+./flyer
+flyer
+*./flyer
+.jpg
 # C extensions
 *.so
 
