@@ -61,14 +61,28 @@ def save_recipes(recipes):
         print(f"Error saving recipes to {RECIPES_FILE}: {e}")
 
 
-@app.route('/recipes/getRecipeById/<int:recipe_id>', methods=['GET'])
-def get_recipe_by_id(recipe_id):
+@app.route('/recipes/getRecipeInformation/<int:recipe_id>', methods=['GET'])
+def get_recipe_information(recipe_id):
+    # Load the recipes from the local file
     recipes = load_recipes().get("results", [])
     recipe = next((r for r in recipes if r.get("id") == recipe_id), None)
     
     if recipe:
-        return jsonify(recipe)
-    return jsonify({"error": "Recipe not found"}), 404
+        try:
+            # If recipe exists, make an API call to get more detailed information
+            url = f'https://api.spoonacular.com/recipes/{recipe_id}/information'
+            params = {
+                'apiKey': API_KEY,
+            }
+            response = requests.get(url, params=params)
+            response.raise_for_status()
+            
+            # Return the detailed recipe information
+            return jsonify(response.json())
+        except requests.exceptions.RequestException as e:
+            return jsonify({'error': str(e)}), 500
+    else:
+        return jsonify({"error": "Recipe not found"}), 404
 
 
 def load_fridge():
