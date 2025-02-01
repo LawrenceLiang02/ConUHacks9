@@ -12,7 +12,7 @@ type IngredientList = FridgeItem[];
 
 const fetchFridgeIngredients = async (): Promise<IngredientList> => {
     try {
-        const response = await axios.get<IngredientList>("http://localhost:5000/recipes/getFridge");
+        const response = await axios.get<IngredientList>("http://localhost:5000/recipes/getFridgeItems");
         console.log(response.data)
         return response.data;
     } catch (error) {

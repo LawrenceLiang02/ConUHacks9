@@ -106,14 +106,14 @@ def save_fridge(fridge):
         for item in fridge:
             f.write(item + "\n")
 
-@app.route('/recipes/getRecipes', methods=['GET'])
-def get_ingredients():
+@app.route('/recipes/getFridgeItems', methods=['GET'])
+def get_fridge_items():
     fridge = load_fridge()
     print(fridge)
     return jsonify(fridge)
 
-@app.route('/recipes/addIngredient', methods=['POST'])
-def add_ingredient():
+@app.route('/recipes/addFridgeItem', methods=['POST'])
+def add_fridge():
     ingredient = request.json.get("ingredient")
     if not ingredient:
         return jsonify({"error": "No ingredient provided"}), 400
@@ -124,8 +124,8 @@ def add_ingredient():
         save_fridge(fridge)
     return jsonify({"message": "Ingredient added", "fridge": fridge})
 
-@app.route('/recipes/deleteIngredient', methods=['POST'])
-def delete_ingredient():
+@app.route('/recipes/deleteFridgeItem', methods=['POST'])
+def delete_fridge_item():
     ingredient = request.json.get("ingredient")
     if not ingredient:
         return jsonify({"error": "No ingredient provided"}), 400

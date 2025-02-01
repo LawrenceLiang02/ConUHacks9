@@ -41,11 +41,6 @@ function CardComponent({ id, title, imageUrl, likes, usedIngredients, missingIng
                 <div className='flex flex-col items-start w-full h-full space-y-2'>
                     <div className="card-text text-lg">{title}</div>
                     <div className="text-sm">
-                        <p><strong>Prep time:</strong> 10 min</p>
-                        <p><strong>Cook time:</strong> 10 min</p>
-                        <p><strong>Total time:</strong> 20 min</p>
-                    </div>
-                    <div className="text-sm">
                         <p className="card-text">Used Ingredients:</p>
                         <ul className="list-disc px-4">
                             {usedIngredients.map((ingredient, index) => (
