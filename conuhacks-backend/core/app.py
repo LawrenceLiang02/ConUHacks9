@@ -1,3 +1,4 @@
+import csv
 from flask import Flask, jsonify, request
 import requests
 import os
@@ -88,26 +89,31 @@ def get_recipe_information(recipe_id):
     else:
         return jsonify({"error": "Recipe not found"}), 404
 
-
-def load_fridge():
-    if os.path.exists(FRIDGE_FILE):
-        with open(FRIDGE_FILE, "r") as f:
-            return [line.strip() for line in f.readlines()]
-    return []
+def load_fridge(filename="fridge.txt"):
+    try:
+        with open(filename, "r", encoding="utf-8") as file:
+            reader = csv.DictReader(file)
+            return [dict(row) for row in reader]
+    except FileNotFoundError:
+        print(f"Error: The file '{filename}' was not found.")
+        return []
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return []
 
 def save_fridge(fridge):
     with open(FRIDGE_FILE, "w") as f:
         for item in fridge:
             f.write(item + "\n")
 
-@app.route('/recipes/getRecipes', methods=['GET'])
-def get_ingredients():
+@app.route('/recipes/getFridgeItems', methods=['GET'])
+def get_fridge_items():
     fridge = load_fridge()
     print(fridge)
     return jsonify(fridge)
 
-@app.route('/recipes/addIngredient', methods=['POST'])
-def add_ingredient():
+@app.route('/recipes/addFridgeItem', methods=['POST'])
+def add_fridge():
     ingredient = request.json.get("ingredient")
     if not ingredient:
         return jsonify({"error": "No ingredient provided"}), 400
@@ -118,8 +124,8 @@ def add_ingredient():
         save_fridge(fridge)
     return jsonify({"message": "Ingredient added", "fridge": fridge})
 
-@app.route('/recipes/deleteIngredient', methods=['POST'])
-def delete_ingredient():
+@app.route('/recipes/deleteFridgeItem', methods=['POST'])
+def delete_fridge_item():
     ingredient = request.json.get("ingredient")
     if not ingredient:
         return jsonify({"error": "No ingredient provided"}), 400

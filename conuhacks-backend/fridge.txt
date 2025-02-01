@@ -1,4 +1,7 @@
-Mango
-Sago
-Coconut Milk
-Condensed Milk
+name,quantity,imageUrl
+Mango,2,https://media.istockphoto.com/id/186018991/photo/mango-on-a-white-background.jpg?s=612x612&w=0&k=20&c=wmj1JQKjI8GYShKsLtMkHbAPJ-GjyaVBnx-CAX_DDtM=
+Sago,1,https://www.shutterstock.com/image-photo/white-sago-pearls-balls-on-260nw-2281574071.jpg
+Coconut Milk,3,https://media.istockphoto.com/id/978998372/photo/whole-coconuts-and-coconut-products-as-milk-and-powder-white-st.jpg?s=612x612&w=0&k=20&c=jndv_WSzPz19I6Chd7AZyE-YFLUYkn9MLsXbfIilfNw=
+Condensed Milk,5,https://media.istockphoto.com/id/1400349796/photo/condensed-milk-in-a-bowl-close-up.jpg?s=612x612&w=0&k=20&c=VCTjQyDjbsUp6nfREzti09ZxaK0FAiSqp840uYrveGk=
+Chicken Breast,1,https://media.istockphoto.com/id/492787098/photo/chicken-breasts-on-cutting-board.jpg?s=612x612&w=0&k=20&c=l1O94YCSRMUgj58WVPpOQFzuzRVwFHDeL6GF6dXFsFg=
+Lamp Chop,1,https://media.istockphoto.com/id/1434515922/photo/roasted-lamb-chop.jpg?s=612x612&w=0&k=20&c=B15t3MC0O9QowPr2tTHU5nmHXkJ6uZE0t8FjRbt8Mak=
