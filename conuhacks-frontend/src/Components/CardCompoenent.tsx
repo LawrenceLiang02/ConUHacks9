@@ -1,7 +1,16 @@
 import { useState } from "react";
 import placeholder_image from "../assets/placeholder_food_image.png";
 
-function CardComponent() {
+interface recipe {
+    id: number,
+    title: string,
+    imageUrl: string,
+    likes: number,
+    usedIngredients: string[],
+    missingIngredients: string[]
+}
+
+function CardComponent(recipe: recipe) {
     const [isChecked, setIsChecked] = useState(false);
 
     return (
@@ -37,11 +46,11 @@ function CardComponent() {
                         <p><strong>Total time:</strong> 20 min</p>
                     </div>
                     <div className="text-sm">
-                        <p className="card-text">In Flyer:</p>
+                        <p className="card-text">Used Ingredients:</p>
                         <ul className="list-disc px-4">
-                            <li>Chicken</li>
-                            <li>Green Onion</li>
-                            <li>Egg</li>
+                            <li>Chicken (Fridge)</li>
+                            <li>Green Onion (IGA)</li>
+                            <li>Egg (Fridge)</li>
                         </ul>
                     </div>
 

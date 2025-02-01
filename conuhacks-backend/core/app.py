@@ -22,7 +22,7 @@ def home():
 @app.route('/recipes/getRecipesFromIngredients', methods=['GET'])
 def get_recipes_from_ingredients():
     try:
-        ingredients = request.args.get('ingredients', '')  # Get ingredients from query params
+        ingredients = request.args.get('ingredients', '')
         if not ingredients:
             return jsonify({'error': 'No ingredients provided'}), 400
 
@@ -42,7 +42,7 @@ def get_recipes_from_ingredients():
 
 @app.route('/recipes/getRecipeById')
 def get_recipe_by_id(recipe_id):
-    return recipesList[recipe_id];
+    return recipesList[recipe_id]
 
 def load_fridge():
     if os.path.exists(FRIDGE_FILE):
