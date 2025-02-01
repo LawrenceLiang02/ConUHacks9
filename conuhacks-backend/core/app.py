@@ -3,7 +3,7 @@ import requests
 import os
 import json
 from dotenv import load_dotenv
-from flask_cors import CORS  # Import CORS
+from flask_cors import CORS
 
 load_dotenv()
 
@@ -29,7 +29,7 @@ def home():
 def get_recipes_from_ingredients():
     try:
         ingredients = load_fridge()
-        print(ingredients)  # Get ingredients from query params
+        print(ingredients)
         if not ingredients:
             return jsonify({'error': 'No ingredients provided'}), 400
 
@@ -89,25 +89,29 @@ def get_recipe_information(recipe_id):
         return jsonify({"error": "Recipe not found"}), 404
 
 
-def load_fridge():
-    if os.path.exists(FRIDGE_FILE):
-        with open(FRIDGE_FILE, "r") as f:
-            return [line.strip() for line in f.readlines()]
-    return []
+def load_fridge(filename="fridge.txt"):
+    try:
+        with open(filename, "r", encoding="utf-8") as file:
+            return [line.strip().lower() for line in file]
+    except FileNotFoundError:
+        print(f"Error: The file '{filename}' was not found.")
+        return []
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return []
 
 def save_fridge(fridge):
     with open(FRIDGE_FILE, "w") as f:
         for item in fridge:
             f.write(item + "\n")
 
-@app.route('/recipes/getRecipes', methods=['GET'])
-def get_ingredients():
+@app.route('/recipes/getFridge', methods=['GET'])
+def get_fridge():
     fridge = load_fridge()
-    print(fridge)
     return jsonify(fridge)
 
-@app.route('/recipes/addIngredient', methods=['POST'])
-def add_ingredient():
+@app.route('/recipes/addFridge', methods=['POST'])
+def add_fridge():
     ingredient = request.json.get("ingredient")
     if not ingredient:
         return jsonify({"error": "No ingredient provided"}), 400
@@ -118,8 +122,8 @@ def add_ingredient():
         save_fridge(fridge)
     return jsonify({"message": "Ingredient added", "fridge": fridge})
 
-@app.route('/recipes/deleteIngredient', methods=['POST'])
-def delete_ingredient():
+@app.route('/recipes/deleteFridge', methods=['POST'])
+def delete_fridge():
     ingredient = request.json.get("ingredient")
     if not ingredient:
         return jsonify({"error": "No ingredient provided"}), 400
