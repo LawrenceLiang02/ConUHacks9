@@ -5,6 +5,7 @@ import os
 import json
 from dotenv import load_dotenv
 from flask_cors import CORS 
+import re
 load_dotenv()
  # Import CORS
 
@@ -227,7 +228,6 @@ def get_top_recipes_from_ingredients():
             'snacks_and_treats'
         ]
         
-        # Extract ingredients
         ingredients = []
         for category in comestible_categories:
             if category in grocery_data['categories']:
@@ -246,8 +246,6 @@ def get_top_recipes_from_ingredients():
                             ingredients.append(word)
         
         ingredients = list(dict.fromkeys(ingredients))
-        
-        # Limit to a reasonable number of ingredients
         ingredients = ingredients[:20]
         
         specific_ingredients = [
@@ -267,20 +265,12 @@ def get_top_recipes_from_ingredients():
             'number': 3,  # Top 5 recipes
         }
         
-        # Remove any empty parameters
         params = {k: v for k, v in params.items() if v}
-        
-        # Print request parameters
-        print("API Request Params:", params)
         
         response = requests.get(url, params=params)
         response.raise_for_status()
-        
-        # Print full response for debugging
         response_data = response.json()
-        print("Full Response:", response_data)
-        
-        # Return the recipes
+
         return jsonify(response_data)
     
     except requests.exceptions.RequestException as e:
