@@ -1,3 +1,4 @@
+import csv
 from flask import Flask, jsonify, request
 import requests
 import os
@@ -86,11 +87,11 @@ def get_recipe_information(recipe_id):
     else:
         return jsonify({"error": "Recipe not found"}), 404
 
-
 def load_fridge(filename="fridge.txt"):
     try:
         with open(filename, "r", encoding="utf-8") as file:
-            return [line.strip().lower() for line in file]
+            reader = csv.DictReader(file)
+            return [dict(row) for row in reader]
     except FileNotFoundError:
         print(f"Error: The file '{filename}' was not found.")
         return []
