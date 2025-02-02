@@ -28,7 +28,7 @@ function HeaderComponent() {
       </div>
 
       <div className="flex flex-row justify-center bg-white shadow-lg z-15 space-x-16">
-        <Link to="/" className="">
+        <Link to="/recommendations" className="">
           <button className="button-default py-2 px-2">
             <p className="uppercase font-semibold text-md">Recommendations</p>
           </button>

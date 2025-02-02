@@ -8,6 +8,7 @@ import Inventory from './Pages/Inventory';
 import AddFridgeItemPopUp from './Pages/AddFridgeItem';
 import DietaryForm from './Components/DietaryForm';
 import KitchenRoles from './Components/KitchenRoles';
+import Recommendation from './Pages/Recommendation';
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
           <Route path="my-recipe/:id" element={<Recipe />} />
           <Route path="dietary-form/:lobbyId" element={<DietaryForm />} />
           <Route path="roles" element={<KitchenRoles />} />
-
+          <Route path="recommendations" element={<Recommendation />} />
         </Route>
       </Routes>
     </BrowserRouter>
