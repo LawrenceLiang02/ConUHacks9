@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route, BrowserRouter } from "react-router-dom";
 import './App.css'
 import Home from './Pages/Home';
 import Layout from './Layout';
@@ -11,7 +11,7 @@ import KitchenRoles from './Components/KitchenRoles';
 
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
@@ -24,7 +24,7 @@ function App() {
 
         </Route>
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   )
 }
 
