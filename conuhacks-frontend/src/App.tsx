@@ -6,6 +6,8 @@ import CreateLobby from './Pages/CreateLobby';
 import Recipe from './Pages/Recipe';
 import Inventory from './Pages/Inventory';
 import AddFridgeItemPopUp from './Pages/AddFridgeItem';
+import DietaryForm from './Pages/DietaryInformation';
+import KitchenRoles from './Components/KitchenRoles';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
           <Route path="create" element={<CreateLobby />} />
           <Route path="add-fridge-item" element={<AddFridgeItemPopUp />} />
           <Route path="my-recipe/:id" element={<Recipe />} />
+          <Route path="dietary-preferences" element={<DietaryForm />} />
+          <Route path="roles" element={<KitchenRoles />} />
         </Route>
       </Routes>
     </HashRouter>
