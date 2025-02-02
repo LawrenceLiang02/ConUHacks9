@@ -7,7 +7,7 @@ export default function Recommendation() {
   const [categorizedRecipes, setCategorizedRecipes] = useState({});
 
   useEffect(() => {
-    fetch('http://localhost:5000/recipes/getRecipesFromIngredients')
+    fetch('http://localhost:5000/recipes/getRecipesFromIngredientsForRecommendations')
       .then(response => response.json())
       .then(initialData => {
         const recipesData = Array.isArray(initialData) ? initialData : initialData.results || [];

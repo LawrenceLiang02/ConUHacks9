@@ -55,6 +55,32 @@ def get_recipes_from_ingredients():
     except requests.exceptions.RequestException as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/recipes/getRecipesFromIngredientsForRecommendations', methods=['GET'])
+def get_recipes_from_ingredients_recommendations():
+    try:
+        ingredients = load_fridge()
+        print(ingredients)  # Get ingredients from query params
+        if not ingredients:
+            return jsonify({'error': 'No ingredients provided'}), 400
+
+        ingredients_string = ', '.join(ingredient['name'] for ingredient in ingredients)
+        
+        url = 'https://api.spoonacular.com/recipes/findByIngredients'
+        params = {
+            'apiKey': API_KEY,
+            'ingredients': ingredients_string,
+            'number':10,
+            'ranking': 1,
+            'ignorePantry': True
+        }
+        response = requests.get(url, params=params)
+        response.raise_for_status()
+
+        save_recipes(response.json())
+        return jsonify(response.json())
+    except requests.exceptions.RequestException as e:
+        return jsonify({'error': str(e)}), 500
+
 def load_recipes():
     if os.path.exists(RECIPES_FILE):
         with open(RECIPES_FILE, "r") as f:
