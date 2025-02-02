@@ -58,7 +58,7 @@ export default function CreateLobby() {
 
   if (lobby) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 p-6">
+      <div className="min-h-screen flex items-center justify-center bg-white p-6">
         <div className="w-full max-w-lg bg-white p-8 rounded-xl shadow-xl">
           <h1 className="text-2xl font-semibold text-center text-gray-800 mb-6">Lobby Created!</h1>
           <p className="text-gray-500 text-center mb-6">Share this link with your guests to collect their dietary preferences</p>
@@ -105,7 +105,7 @@ export default function CreateLobby() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-6">
+    <div className="min-h-screen flex items-center justify-center bg-white p-6">
       <div className="w-full max-w-lg bg-white p-8 rounded-xl shadow-xl">
         <h1 className="text-2xl font-semibold text-center text-gray-800 mb-6">Create a Lobby</h1>
         <p className="text-gray-500 text-center mb-6">Select a date and name for your event to generate a dietary preferences form</p>

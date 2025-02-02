@@ -7,7 +7,7 @@ import Recipe from './Pages/Recipe';
 import Inventory from './Pages/Inventory';
 import AddFridgeItemPopUp from './Pages/AddFridgeItem';
 import DietaryForm from './Components/DietaryForm';
-import KitchenRoles from './Components/KitchenRoles';
+// import KitchenRoles from './Components/KitchenRoles';
 import Recommendation from './Pages/Recommendation';
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
           <Route path="add-fridge-item" element={<AddFridgeItemPopUp />} />
           <Route path="my-recipe/:id" element={<Recipe />} />
           <Route path="dietary-form/:lobbyId" element={<DietaryForm />} />
-          <Route path="roles" element={<KitchenRoles />} />
+          {/* <Route path="roles" element={<KitchenRoles />} /> */}
           <Route path="recommendations" element={<Recommendation />} />
         </Route>
       </Routes>

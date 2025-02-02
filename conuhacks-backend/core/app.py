@@ -444,5 +444,25 @@ def submit_dietary_info(lobby_id):
 
     return jsonify({'message': 'Dietary information submitted successfully'}), 200
 
+
+@app.route('/get-participants/<lobby_id>', methods=['GET'])
+def get_participants(lobby_id):
+    if os.path.exists(LOBBY_DATA_FILE):
+        with open(LOBBY_DATA_FILE, 'r') as file:
+            lobbies = json.load(file)
+    else:
+        return jsonify({'message': 'No lobby data found'}), 404
+
+    lobby = next((lobby for lobby in lobbies if lobby['lobbyId'] == lobby_id), None)
+
+    if not lobby:
+        return jsonify({'message': 'Lobby not found'}), 404
+
+    participants = lobby.get('participants', [])
+
+    return jsonify({'participants': participants}), 200
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
