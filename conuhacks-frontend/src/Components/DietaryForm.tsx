@@ -5,6 +5,7 @@ import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { Calendar as CalendarIcon, Copy } from 'lucide-react';
 import KitchenRoles from './KitchenRoles';
+import Roulette from './Roulette';
 
 interface DietaryForm {
   name: string;
@@ -354,6 +355,9 @@ const DietaryForm: React.FC = () => {
 
 <div className="w-full mt-8">
 <KitchenRoles />
+<div className="flex justify-around items-center min-h-screen ">
+    <Roulette />
+  </div>
 </div>
 </div>
 );

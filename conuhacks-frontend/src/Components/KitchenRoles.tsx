@@ -29,6 +29,8 @@ const KitchenRoles = () => {
         icon: getIconForRole(participant),
         description: randomDescriptions[Math.floor(Math.random() * randomDescriptions.length)],
         specialties: participant.specialties || ["Mystery Skill"],
+        allergies: participant.allergies || ["None"],
+        dietaryRestrictions: participant.dietaryRestrictions || ["None"],
         powerLevel: Math.floor(Math.random() * 5) + 1, 
       }));
 
@@ -63,6 +65,7 @@ const KitchenRoles = () => {
 
   return (
     <div className="w-full h-screen flex items-center justify-center bg-white p-8 perspective">
+      <h1 className="z-20 -top-90 -left-30 relative text-5xl font-serif">The Team</h1>
       <div className="relative max-w-6xl max-h-l">
         <button
           onClick={prevSlide}
@@ -126,6 +129,16 @@ const KitchenRoles = () => {
                           ✨ {specialty}
                         </span>
                       ))}
+                      {role.allergies.map((allergy) => (
+                        <span key={allergy} className="text-sm px-4 py-2 rounded-full bg-red-100 text-red-600 font-medium">
+                          🚨 {allergy}
+                        </span>
+                      ))}
+                      {role.dietaryRestrictions.map((restriction) => (
+                        <span key={restriction} className="text-sm px-4 py-2 rounded-full bg-yellow-100 text-yellow-600 font-medium">
+                          ⚠️ {restriction}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -133,42 +146,7 @@ const KitchenRoles = () => {
             );
           })}
         </div>
-
-        <div className="flex justify-center gap-2 mt-6">
-          {Array.from({ length: roles.length - 2 }).map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setStartIndex(index)}
-              className={`w-2 h-2 rounded-full transition-all ${
-                startIndex === index
-                  ? "bg-indigo-600 w-4"
-                  : "bg-gray-300 hover:bg-gray-400"
-              }`}
-            />
-          ))}
-        </div>
       </div>
-
-      <style jsx global>{`
-        .perspective {
-          perspective: 2000px;
-        }
-        .preserve-3d {
-          transform-style: preserve-3d;
-          backface-visibility: hidden;
-        }
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) translateZ(0); }
-          50% { transform: translateY(-10px) translateZ(20px); }
-        }
-        .animate-float {
-          animation: float 4s ease-in-out infinite;
-          animation-delay: calc(var(--index) * 0.2s);
-        }
-        .card-content {
-          transform: translateZ(20px);
-        }
-      `}</style>
     </div>
   );
 };
