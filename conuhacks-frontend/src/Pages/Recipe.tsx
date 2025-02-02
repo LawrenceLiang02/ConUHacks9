@@ -54,18 +54,11 @@ export default function Recipe() {
   if (loading) {
     return (
       <div className="max-w-6xl mx-auto px-4">
-        <header className="py-6 border-b">
-          <div className="text-2xl font-bold text-purple-700">PURPLE CARROT</div>
-          <nav className="mt-4 space-x-6">
-            <a href="/why-plants" className="hover:text-purple-700">WHY PLANTS</a>
-            <a href="/menus" className="hover:text-purple-700">MENUS</a>
-            <a href="/pricing" className="hover:text-purple-700">PRICING</a>
-            <a href="/merch" className="hover:text-purple-700">MERCH</a>
-            <a href="/gifts" className="hover:text-purple-700">GIFTS</a>
-          </nav>
+        <header className="">
+         
         </header>
         <div className="mt-8 flex justify-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-700"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#5ba47b]"></div>
         </div>
       </div>
     );
@@ -74,15 +67,8 @@ export default function Recipe() {
   if (error || !recipe) {
     return (
       <div className="max-w-6xl mx-auto px-4">
-        <header className="py-6 border-b">
-          <div className="text-2xl font-bold text-purple-700">PURPLE CARROT</div>
-          <nav className="mt-4 space-x-6">
-            <a href="/why-plants" className="hover:text-purple-700">WHY PLANTS</a>
-            <a href="/menus" className="hover:text-purple-700">MENUS</a>
-            <a href="/pricing" className="hover:text-purple-700">PRICING</a>
-            <a href="/merch" className="hover:text-purple-700">MERCH</a>
-            <a href="/gifts" className="hover:text-purple-700">GIFTS</a>
-          </nav>
+        <header className="">
+          
         </header>
         <div className="mt-8 text-red-600">
           {error || 'Recipe not found'}
