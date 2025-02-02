@@ -6,6 +6,7 @@ import json
 from dotenv import load_dotenv
 from flask_cors import CORS 
 import re
+import random
 load_dotenv()
  # Import CORS
 
@@ -34,12 +35,12 @@ def home():
 def get_recipes_from_ingredients():
     try:
         fridge = load_fridge()
-        # iga_discounts = load_grocery_json("iga_results.json")
+        iga_discounts = load_grocery_json("iga_results.json")
         # metro_discounts = load_grocery_json("metro_results.json")
         # super_discounts = load_grocery_json("super_results.json")
         fridge_names = extract_names(fridge)
         
-        ingredients = fridge_names #+ iga_discounts + metro_discounts + super_discounts
+        ingredients = fridge_names + iga_discounts  # + metro_discounts + super_discounts
         if not ingredients:
             return jsonify({'error': 'No ingredients provided'}), 400
 
@@ -49,17 +50,31 @@ def get_recipes_from_ingredients():
         params = {
             'apiKey': API_KEY,
             'ingredients': ingredients_string,
-            'number':5,
+            'number': 5,
             'ranking': 1,
             'ignorePantry': True
         }
         response = requests.get(url, params=params)
         response.raise_for_status()
-        
-        #save_recipes(response.json())
-        return jsonify(response.json())
+
+        recipes = response.json()
+
+        # Add price calculation for each recipe
+        for recipe in recipes:
+            total_price = 0
+            for ingredient in recipe.get("usedIngredients", []) + recipe.get("missedIngredients", []):
+                ingredient_name = ingredient.get("name", "").lower()
+                total_price += get_price(ingredient_name)
+                
+            random_multiplier = random.uniform(1.25, 1.75)
+            recipe["total_price"] = round(total_price, 2)
+            recipe["original_price"] = round(total_price * random_multiplier, 2)
+
+        return jsonify(recipes)
+
     except requests.exceptions.RequestException as e:
         return jsonify({'error': str(e)}), 500
+
 
 @app.route('/recipes/getRecipesFromIngredientsForRecommendations', methods=['GET'])
 def get_recipes_from_ingredients_recommendations():
@@ -408,6 +423,18 @@ def load_grocery_with_price_json(filename="iga_results.json"):
     
     return food_items
 
+def get_price(item, filename="iga_results.json"):
+    try:
+        with open(filename, 'r') as file:
+            data = json.load(file)
+    except FileNotFoundError:
+        return None
+
+    for category, items in data["categories"].items():
+        for name, price in items.items():
+            if item.lower() in name.lower():
+                return float(price)
+    return 0
 
 if __name__ == '__main__':
     app.run(debug=True)

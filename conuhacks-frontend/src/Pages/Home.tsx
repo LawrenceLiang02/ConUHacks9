@@ -24,7 +24,9 @@ export default function Home() {
                         imageUrl: recipe.image || placeholder_image,
                         likes: recipe.likes || 0,
                         usedIngredients: recipe.usedIngredients ? recipe.usedIngredients.map(ingredient => ingredient.original) : [],
-                        missingIngredients: recipe.missedIngredients ? recipe.missedIngredients.map(ingredient => ingredient.original) : []
+                        missingIngredients: recipe.missedIngredients ? recipe.missedIngredients.map(ingredient => ingredient.original) : [],
+                        total_price: recipe.total_price || 0,
+                        original_price: recipe.original_price || 0,
                     }));
                     console.log("Mapped Recipes:", mappedRecipes); // Debug: Log the mapped recipes
                     setRecipes(mappedRecipes);
