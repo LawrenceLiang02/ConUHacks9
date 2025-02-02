@@ -69,5 +69,51 @@
     "allergies": [],
     "dietaryRestrictions": [],
     "dietaryFormLink": "/dietary-form/qdztzt2jnes"
+  },
+  {
+    "lobbyId": "megx1chypx",
+    "title": "Test",
+    "date": "2025-02-05T05:00:00.000Z",
+    "participants": [
+      {
+        "name": "Ludovic",
+        "email": "ludo@gmail.com",
+        "allergies": [
+          "Dairy",
+          "Shellfish"
+        ],
+        "dietaryRestrictions": [
+          "Vegan"
+        ],
+        "specialties": [
+          "Grilling"
+        ]
+      },
+      {
+        "name": "Kenny",
+        "email": "kenny@gmail.com",
+        "allergies": [
+          "Sesame"
+        ],
+        "dietaryRestrictions": [
+          "Vegetarian"
+        ],
+        "specialties": [
+          "Baking"
+        ]
+      },
+      {
+        "name": "Lawrence",
+        "email": "lawrence@gmail.com",
+        "allergies": [],
+        "dietaryRestrictions": [],
+        "specialties": [
+          "Sushi Making"
+        ]
+      }
+    ],
+    "allergies": [],
+    "dietaryRestrictions": [],
+    "dietaryFormLink": "/dietary-form/megx1chypx"
   }
 ]
