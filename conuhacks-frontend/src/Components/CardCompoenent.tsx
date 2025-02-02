@@ -68,7 +68,6 @@ function CardComponent({ id, title, imageUrl, likes, usedIngredients, missingIng
                         </svg>
                     </div>
                     </div>
-
                 </div>
                 </div>
             </div>

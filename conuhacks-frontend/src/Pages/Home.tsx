@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import CardComponent from '../Components/CardCompoenent';
 import { Link } from 'react-router-dom';
+import placeholder_image from "../assets/placeholder_food_image.png";
 
 export default function Home() {
     const [recipes, setRecipes] = useState([]);

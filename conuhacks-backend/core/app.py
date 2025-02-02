@@ -13,9 +13,11 @@ app = Flask(__name__)
 CORS(app)
 
 API_KEY = os.getenv('API_KEY')
+PIXABAY_API_KEY = os.getenv('PIXABAY_API_KEY')
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
 FRIDGE_FILE = os.path.join(BASE_DIR, "fridge.txt")
 RECIPES_FILE = os.path.join(BASE_DIR, "recipes.json")
+PIXABAY_URL = "https://pixabay.com/api/"
 
 ingredients__mock_list = ['apple', 'sugar', 'flour']
 
@@ -36,7 +38,7 @@ def get_recipes_from_ingredients():
             return jsonify({'error': 'No ingredients provided'}), 400
 
         ingredients_string = ', '.join(ingredient['name'] for ingredient in ingredients)
-
+        
         url = 'https://api.spoonacular.com/recipes/findByIngredients'
         params = {
             'apiKey': API_KEY,
@@ -103,41 +105,70 @@ def load_fridge(filename="fridge.txt"):
         return []
 
 def save_fridge(fridge):
-    with open(FRIDGE_FILE, "w") as f:
+    with open("fridge.txt", "w") as f:
+        f.write("name,quantity,imageUrl\n")
         for item in fridge:
-            f.write(item + "\n")
+            f.write(f"{item['name']},{item['quantity']},{item['imageUrl']}\n")
 
 @app.route('/recipes/getFridgeItems', methods=['GET'])
 def get_fridge_items():
     fridge = load_fridge()
-    print(fridge)
     return jsonify(fridge)
 
 @app.route('/recipes/addFridgeItem', methods=['POST'])
-def add_fridge():
-    ingredient = request.json.get("ingredient")
-    if not ingredient:
-        return jsonify({"error": "No ingredient provided"}), 400
+def add_fridge(filename="fridge.txt"):
+    name = request.json.get("name")
+    quantity = request.json.get("quantity")
+
+    if not name or not quantity:
+        return jsonify({"error": "Missing name or quantity"}), 400
     
-    fridge = load_fridge()
-    if ingredient not in fridge:
-        fridge.append(ingredient)
-        save_fridge(fridge)
-    return jsonify({"message": "Ingredient added", "fridge": fridge})
+    params = {
+        "key": PIXABAY_API_KEY,
+        "q": name,
+        "image_type": "photo",
+        "pretty": True,
+        "category": "food"
+    }
+    response = requests.get(PIXABAY_URL, params=params)
+    print("Pixabay API URL:", response.url)
+    if response.status_code != 200:
+        return jsonify({"error": "Failed to fetch image"}), 500
+    
+    data = response.json()
+    if "hits" in data and len(data["hits"]) > 0:
+        image_url = data["hits"][0]["webformatURL"]
+    else:
+        print("no Images found")
+
+    try:
+        with open(filename, "a", newline="", encoding="utf-8") as file:
+            writer = csv.writer(file)
+            writer.writerow([name.lower(), quantity, image_url])  # Append new item
+
+        return jsonify({"message": "Ingredient added successfully!"}), 201
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @app.route('/recipes/deleteFridgeItem', methods=['POST'])
 def delete_fridge_item():
     ingredient = request.json.get("ingredient")
     if not ingredient:
         return jsonify({"error": "No ingredient provided"}), 400
-    
+
     fridge = load_fridge()
-    if ingredient in fridge:
-        fridge.remove(ingredient)
-        save_fridge(fridge)
-        return jsonify({"message": "Ingredient removed", "fridge": fridge})
-    else:
+    ingredient_lower = ingredient.lower().strip()
+
+    filtered_fridge = [item for item in fridge if item["name"].lower().strip() != ingredient_lower]
+
+    if len(filtered_fridge) == len(fridge):
         return jsonify({"error": "Ingredient not found"}), 404
+
+    save_fridge(filtered_fridge)
+
+    return jsonify({"message": f"Ingredient '{ingredient}' removed", "fridge": filtered_fridge})
+
 
 @app.route('/recipes/searchRecipe', methods=['GET'])
 def search_recipe():
