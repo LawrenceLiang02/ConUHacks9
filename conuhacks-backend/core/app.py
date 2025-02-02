@@ -17,12 +17,26 @@ PIXABAY_API_KEY = os.getenv('PIXABAY_API_KEY')
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
 FRIDGE_FILE = os.path.join(BASE_DIR, "fridge.txt")
 RECIPES_FILE = os.path.join(BASE_DIR, "recipes.json")
+LOBBY_DATA_FILE = os.path.join(BASE_DIR, "store/rooms.json")  # Ensure the full path is correct
+
+# Ensure the directory exists before writing to the file
+os.makedirs(os.path.dirname(LOBBY_DATA_FILE), exist_ok=True)
 PIXABAY_URL = "https://pixabay.com/api/"
 
 ingredients__mock_list = ['apple', 'sugar', 'flour']
 
 recipesList = []
 fridge = []
+
+
+def get_lobby_by_id(lobby_id):
+    if os.path.exists(LOBBY_DATA_FILE):
+        with open(LOBBY_DATA_FILE, 'r') as file:
+            lobbies = json.load(file)
+            lobby = next((lobby for lobby in lobbies if lobby['lobbyId'] == lobby_id), None)
+            if lobby:
+                return lobby
+    return None  
 
 @app.route('/')
 def home():
@@ -310,7 +324,72 @@ def get_top_recipes_from_ingredients():
     except Exception as e:
         print(f"Unexpected Error: {e}")
         return jsonify({'error': str(e)}), 500
+# Endpoint to create a lobby
+@app.route('/create-lobby', methods=['POST'])
+def create_lobby():
+    lobby_data = request.json
+    lobby_id = lobby_data['lobbyId']
+    
+    # Load existing lobbies or create an empty list
+    if os.path.exists(LOBBY_DATA_FILE):
+        with open(LOBBY_DATA_FILE, 'r') as file:
+            lobbies = json.load(file)
+    else:
+        lobbies = []
 
+    # Add new lobby to the list
+    lobbies.append(lobby_data)
+
+    # Save the updated lobbies data
+    with open(LOBBY_DATA_FILE, 'w') as file:
+        json.dump(lobbies, file, indent=2)
+
+    return jsonify({'message': 'Lobby created successfully'}), 200
+
+
+@app.route('/lobby/<lobby_id>', methods=['GET'])
+def get_lobby(lobby_id):
+    # Assuming you fetch the lobby details from a database or file
+    lobby = get_lobby_by_id(lobby_id)  # This function retrieves the lobby info by ID
+    
+    if lobby is None:
+        return jsonify({'error': 'Lobby not found'}), 404
+    
+    return jsonify({
+        'name': lobby['title'],
+        'date': lobby['date']
+    })
+
+
+# Endpoint to submit dietary information for a lobby
+@app.route('/submit-dietary-info/<lobby_id>', methods=['POST'])
+def submit_dietary_info(lobby_id):
+    dietary_info = request.json
+    
+    # Load existing lobbies
+    if os.path.exists(LOBBY_DATA_FILE):
+        with open(LOBBY_DATA_FILE, 'r') as file:
+            lobbies = json.load(file)
+    else:
+        return jsonify({'message': 'No lobby data found'}), 404
+
+    # Find the lobby by ID
+    lobby = next((lobby for lobby in lobbies if lobby['lobbyId'] == lobby_id), None)
+
+    if not lobby:
+        return jsonify({'message': 'Lobby not found'}), 404
+
+    # Append the dietary information to the participants
+    if 'participants' not in lobby:
+        lobby['participants'] = []
+
+    lobby['participants'].append(dietary_info)
+
+    # Save the updated lobbies data
+    with open(LOBBY_DATA_FILE, 'w') as file:
+        json.dump(lobbies, file, indent=2)
+
+    return jsonify({'message': 'Dietary information submitted successfully'}), 200
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,0 +1,32 @@
+[
+  {
+    "lobbyId": "xrwiksz0dt",
+    "title": "Diddy Party",
+    "date": "2025-02-13T05:00:00.000Z",
+    "participants": [],
+    "allergies": [],
+    "dietaryRestrictions": []
+  },
+  {
+    "lobbyId": "83ayxnc25c6",
+    "title": "Diddy Party",
+    "date": "2025-02-13T05:00:00.000Z",
+    "participants": [
+      {
+        "name": "bernard",
+        "email": "dsfs@sdgsg.com",
+        "allergies": [
+          "Shellfish",
+          "Sesame"
+        ],
+        "dietaryRestrictions": [
+          "Gluten-free",
+          "Paleo"
+        ]
+      }
+    ],
+    "allergies": [],
+    "dietaryRestrictions": [],
+    "dietaryFormLink": "/dietary-form/83ayxnc25c6"
+  }
+]

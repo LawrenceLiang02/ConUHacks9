@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { Calendar as CalendarIcon, Copy, Link as LinkIcon } from 'lucide-react';
+import axios from 'axios';
 
 interface Lobby {
   id: string;
@@ -10,24 +11,43 @@ interface Lobby {
 }
 
 export default function CreateLobby() {
-  const [date, setDate] = useState<Date>();
+  const [date, setDate] = useState<Date | undefined>();
   const [lobby, setLobby] = useState<Lobby | null>(null);
-  const [lobbyName, setLobbyName] = useState('');
-  const [copied, setCopied] = useState(false);
+  const [lobbyName, setLobbyName] = useState<string>('');
+  const [copied, setCopied] = useState<boolean>(false);
 
   const generateLobby = () => {
     if (!date || !lobbyName) return;
-
+  
     const lobbyId = Math.random().toString(36).substring(2, 15);
     const dietaryFormLink = `/dietary-form/${lobbyId}`;
-
+  
+    const lobbyData = {
+      lobbyId: lobbyId,
+      title: lobbyName,
+      date: date,
+      participants: [], // Empty initially
+      allergies: [],     // Empty initially
+      dietaryRestrictions: [], // Empty initially
+      dietaryFormLink: dietaryFormLink // Include the generated link here
+    };
+  
+    // Send the lobby data to the Flask backend to be saved
+    axios.post('http://localhost:5000/create-lobby', lobbyData)
+      .then(response => {
+        console.log('Lobby created:', response.data);
+      })
+      .catch(error => {
+        console.error('Error creating lobby:', error);
+      });
+  
     setLobby({
       id: lobbyId,
       date: date,
       link: dietaryFormLink
     });
   };
-
+  
   const copyLink = () => {
     if (lobby) {
       navigator.clipboard.writeText(`${window.location.origin}${lobby.link}`);
@@ -103,18 +123,18 @@ export default function CreateLobby() {
           </div>
 
           <div className="flex justify-center items-center">
-        <div className="w-full max-w-md">
-            <label className="block text-sm font-medium text-gray-600 mb-2">Event Date</label>
-            <div className="p-4 border rounded-xl shadow-sm mb-6">
-            <DayPicker
-                mode="single"
-                selected={date}
-                onSelect={setDate}
-                className="w-full"
-            />
+            <div className="w-full max-w-md">
+              <label className="block text-sm font-medium text-gray-600 mb-2">Event Date</label>
+              <div className="p-4 border rounded-xl shadow-sm mb-6">
+                <DayPicker
+                  mode="single"
+                  selected={date}
+                  onSelect={setDate}
+                  className="w-full"
+                />
+              </div>
             </div>
-        </div>
-        </div>
+          </div>
 
           <button 
             onClick={generateLobby}
