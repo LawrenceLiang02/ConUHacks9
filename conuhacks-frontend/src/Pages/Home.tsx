@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import CardComponent from '../Components/CardCompoenent';
 import { Link } from 'react-router-dom';
 import placeholder_image from "../assets/placeholder_food_image.png";
+import DiscountedItem from '../Components/DiscountedItem';
+import DiscountSlider from '../Components/DiscountSlider';
 
 export default function Home() {
     const [recipes, setRecipes] = useState([]);
+    const [groceryDiscounts, setGroceryDiscounts] = useState({});
 
     useEffect(() => {
         // Fetch recipes from your Flask API
@@ -30,6 +33,14 @@ export default function Home() {
                 }
             })
             .catch(error => console.error('Error fetching recipes:', error));
+
+         fetch('http://localhost:5000/recipes/groceries')
+            .then(response => response.json())
+            .then(data => {
+                console.log("API Response (Groceries):", data);
+                setGroceryDiscounts(data);
+            })
+            .catch(error => console.error('Error fetching grocery discounts:', error));
     }, []);
 
     return (
@@ -55,9 +66,11 @@ export default function Home() {
                 ))}
             </div>
 
-            <div>
-                <p className='w-full text-2xl font-semibold'>On discount</p>
+            <div className='pb-20'>
+                <DiscountSlider groceryDiscounts={groceryDiscounts} />
             </div>
+
+            
         </div>
     );
 }

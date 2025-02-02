@@ -54,9 +54,10 @@ function CardComponent({ id, title, imageUrl, likes, usedIngredients, missingIng
                         <div className="text-sm">
                             <p className="card-text">Used Ingredients:</p>
                             <ul className="list-disc px-4">
-                                {usedIngredients.map((ingredient, index) => (
-                                    <li key={index}>{ingredient}</li>
+                                {usedIngredients.slice(0, 10).map((ingredient, index) => (
+                                    <li key={index} className="text-xs">{ingredient}</li>
                                 ))}
+                                <li className="text-xs">And more...</li>
                             </ul>
                         </div>
                     </div>

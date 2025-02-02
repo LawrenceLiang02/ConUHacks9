@@ -46,6 +46,12 @@ function HeaderComponent() {
           </button>
         </Link>
 
+        <Link to="/flyers" className="">
+          <button className="button-default py-2 px-2">
+            <p className="uppercase font-semibold text-md">Flyers</p>
+          </button>
+        </Link>
+
       </div>
     </div>
   )
