@@ -1,0 +1,88 @@
+{
+    "store": "Metro",
+    "valid_dates": {
+      "start": "2025-01-30",
+      "end": "2025-02-05"
+    },
+    "categories": {
+      "frozen_and_prepared": {
+        "Eggo frozen waffles": "3.49",
+        "Rustica pizza": "7.99",
+        "Michelina's frozen entree": "1.99",
+        "Cavendish fries": "3.99",
+        "Janés pub-style breaded chicken or wings": "9.99",
+        "Swiss Chalet, St-Hubert or Montana's meat pies": "10.99",
+        "Butterball boneless turkey breast (1.2-1.5kg)": "24.99",
+        "Selection stuffed chicken breast (284g)": "3.99",
+        "Mama Yolanda's frozen lasagna (1.22kg)": "9.99"
+      },
+      "pantry": {
+        "Selection pasta sauce (650mL)": "3.49",
+        "Classico sauce (218-600mL)": "3.99",
+        "Knorr Sidekicks (120-167g)": "0.99",
+        "Kraft peanut butter (1kg)": "5.99",
+        "Ben's Original Fast & Fancy rice (132g)": "1.99",
+        "Unico olives (375mL)": "3.99",
+        "Hunt's pasta sauce": "2.49",
+        "Kellogg's cereal (340-460g)": "4.99",
+        "Nature's Path cereal (907g)": "7.99",
+        "Pearl Milling pancake mix (905g) or syrup (710mL)": "4.99"
+      },
+      "beverages": {
+        "Eska natural spring water (24x500mL)": "4.99",
+        "Tropicana or Pure Leaf drinks (1.36-1.75L)": "4.99",
+        "Fuze iced tea (12x341mL)": "8.49",
+        "Rougemont apple juice (2L)": "2.49",
+        "San Pellegrino sparkling drink (6x330mL)": "5.99"
+      },
+      "snacks": {
+        "Miss Vickie's chips (200g)": "3.99",
+        "Pringles chips (158-203g)": "3.49",
+        "Cheez-It crackers (191-200g)": "2.99",
+        "Goldfish crackers (156-227g)": "2.99",
+        "Orville Redenbacher popping corn": "4.49",
+        "Ferrero Rocher (200g)": "7.99",
+        "Lindt chocolate bar (100g)": "3.99"
+      },
+      "meat_and_seafood": {
+        "Fresh chicken drumsticks and thighs (per kg)": "5.99",
+        "Fresh boneless skinless chicken breast (per kg)": "10.76",
+        "Boneless pork loin rib or sirloin half (per kg)": "6.59",
+        "Cooked Pacific white shrimp (500g)": "9.99",
+        "Fresh Atlantic salmon portions (113g)": "4.99",
+        "Rock lobster tails (2oz, frozen)": "15.99"
+      },
+      "dairy_and_cheese": {
+        "Philadelphia cream cheese (340g)": "5.49",
+        "Oikos yogurt (selected sizes)": "3.99",
+        "Cracker Barrel shredded cheese (320-460g)": "6.99",
+        "Saputo Mozzarellissima (1kg)": "15.99",
+        "Brie double cream (per 100g)": "2.99"
+      },
+      "produce": {
+        "Organic lemons (454g)": "3.99",
+        "Organic French beans (350g)": "2.49",
+        "Broccoli crowns (per lb)": "1.99",
+        "Belle Grove whole white or cremini mushrooms (227g)": "3.44",
+        "Mini cucumbers (454g)": "2.99",
+        "Russet potatoes (5lb)": "2.49",
+        "Blueberries (pint)": "3.99",
+        "Raspberries (170g)": "3.99",
+        "Sweet potatoes (per kg)": "4.14",
+        "Gala or Fuji apples (per kg)": "4.39",
+        "Cara Cara oranges (3lb)": "5.99"
+      },
+      "bakery": {
+        "Dempster's whole grain breads or English muffins": "3.99",
+        "Front Street Bakery croissants (12pk, 684g)": "4.99",
+        "Front Street Bakery mini dessert cakes (280-440g)": "6.99",
+        "Front Street Bakery submarine rolls (550g, 4pk)": "3.99"
+      }
+    },
+    "notes": {
+      "membership": "Some prices require Moi Rewards membership card",
+      "tax_break": "TPS/GST tax break applies to selected items",
+      "availability": "Prices and availability may vary by location"
+    }
+  }
+  

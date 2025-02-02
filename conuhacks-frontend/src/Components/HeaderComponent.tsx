@@ -33,7 +33,7 @@ function HeaderComponent() {
             className="button-default bg-white py-2 px-8 rounded-lg shadow-lg"
             onClick={() => setIsInputVisible(true)} // Show input field when button is clicked
           >
-            <p className="uppercase font-semibold text-lg">Join Lobby</p>
+            <p className="uppercase font-semibold text-lg">Join Party</p>
           </button>
         ) : (
           <form onSubmit={handleLobbyCodeSubmit} className="flex items-center">
@@ -52,7 +52,7 @@ function HeaderComponent() {
 
         <Link to="/create" className="">
           <button className="button-default bg-white py-2 px-8 rounded-lg shadow-lg">
-            <p className="uppercase font-semibold text-lg">Create Lobby</p>
+            <p className="uppercase font-semibold text-lg">Create Party</p>
           </button>
         </Link>
       </div>
@@ -75,6 +75,13 @@ function HeaderComponent() {
             <p className="uppercase font-semibold text-md">My Fridge</p>
           </button>
         </Link>
+
+        <Link to="/flyers" className="">
+          <button className="button-default py-2 px-2">
+            <p className="uppercase font-semibold text-md">Flyers</p>
+          </button>
+        </Link>
+
       </div>
     </div>
   );

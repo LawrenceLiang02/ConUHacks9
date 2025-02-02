@@ -13,6 +13,7 @@ app = Flask(__name__)
 CORS(app)
 
 API_KEY = os.getenv('API_KEY')
+print(API_KEY)
 PIXABAY_API_KEY = os.getenv('PIXABAY_API_KEY')
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
 FRIDGE_FILE = os.path.join(BASE_DIR, "fridge.txt")
@@ -46,12 +47,17 @@ def home():
 @app.route('/recipes/getRecipesFromIngredients', methods=['GET'])
 def get_recipes_from_ingredients():
     try:
-        ingredients = load_fridge()
-        print(ingredients)  # Get ingredients from query params
+        fridge = load_fridge()
+        # iga_discounts = load_grocery_json("iga_results.json")
+        # metro_discounts = load_grocery_json("metro_results.json")
+        # super_discounts = load_grocery_json("super_results.json")
+        fridge_names = extract_names(fridge)
+        
+        ingredients = fridge_names #+ iga_discounts + metro_discounts + super_discounts
         if not ingredients:
             return jsonify({'error': 'No ingredients provided'}), 400
 
-        ingredients_string = ', '.join(ingredient['name'] for ingredient in ingredients)
+        ingredients_string = ', '.join(ingredient for ingredient in ingredients)
         
         url = 'https://api.spoonacular.com/recipes/findByIngredients'
         params = {
@@ -63,8 +69,8 @@ def get_recipes_from_ingredients():
         }
         response = requests.get(url, params=params)
         response.raise_for_status()
-
-        save_recipes(response.json())
+        
+        #save_recipes(response.json())
         return jsonify(response.json())
     except requests.exceptions.RequestException as e:
         return jsonify({'error': str(e)}), 500
@@ -170,6 +176,9 @@ def load_fridge(filename="fridge.txt"):
     except Exception as e:
         print(f"An error occurred: {e}")
         return []
+
+def extract_names(items):
+    return [item["name"] for item in items if isinstance(item, dict) and "name" in item]
 
 def save_fridge(fridge):
     with open("fridge.txt", "w") as f:
@@ -462,6 +471,41 @@ def get_participants(lobby_id):
 
     return jsonify({'participants': participants}), 200
 
+
+
+@app.route('/recipes/groceries', methods=['GET'])
+def get_groceries():
+    grocery_discounts = {
+        "iga": load_grocery_with_price_json("iga_results.json"),
+        "metro": load_grocery_with_price_json("metro_results.json"),
+        "super c": load_grocery_with_price_json("super_results.json"),
+    }
+    
+    return jsonify(grocery_discounts)
+
+def load_grocery_json(filename="iga_results.json"):
+    with open(filename, 'r') as file:
+        data = json.load(file)
+
+    food_names = []
+    for category, items in data["categories"].items():
+        food_names.extend(items.keys())
+
+    return food_names
+
+def load_grocery_with_price_json(filename="iga_results.json"):
+    try:
+        with open(filename, 'r') as file:
+            data = json.load(file)
+    except FileNotFoundError:
+        return []
+    
+    food_items = []
+    for category, items in data["categories"].items():
+        for name, price in items.items():
+            food_items.append({"name": name, "price": price})
+    
+    return food_items
 
 
 if __name__ == '__main__':

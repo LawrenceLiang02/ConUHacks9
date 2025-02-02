@@ -12,4 +12,13 @@
   .card-text-shadow {
     text-shadow: 1px 2px 2px white
   }
+
+  .slick-prev:before, .slick-next:before {
+    color: black !important; /* Customize arrow color */
+    font-size: 24px !important;
+}
+
+.slick-dots {
+    bottom: -30px !important; /* Adjust dot position */
+}
 }

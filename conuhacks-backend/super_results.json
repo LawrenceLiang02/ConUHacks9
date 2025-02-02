@@ -1,0 +1,80 @@
+{
+  "store": "Metro",
+  "valid_dates": {
+    "start": "2025-01-23",
+    "end": "2025-01-29"
+  },
+  "categories": {
+    "frozen_and_prepared": {
+      "Eggo Frozen Waffles": "5.99",
+      "Real Dairy Ice Cream, Drumstick or Dr. Oetker Giuseppe Pizza": "5.99",
+      "Healthy Choice, Swanson or Marie Callender's Frozen Meal": "6.99",
+      "McCain Fries or Green Giant Frozen Vegetables": "4.99",
+      "Janes Pan-Sear or Breaded Fish Fillets": "7.99",
+      "Waterview Market Shrimp with Sauce (454g)": "9.99",
+      "Irresistibles Hummus or Dips (200-227g)": "3.99",
+      "Irresistibles Popcorn Shrimp (700g)": "11.99"
+    },
+    "pantry": {
+      "Selection Pasta Sauce (650ml)": "3.49",
+      "Bertolli Olive Oil (750ml-1L)": "9.99",
+      "Campbell's Soup (515ml)": "2.99",
+      "Blue Diamond Almonds (170g)": "5.99",
+      "Unico Beans or Aurora Diced Tomatoes (398ml-540ml)": "1.79",
+      "Molisana Arborio Rice (1kg)": "4.49",
+      "Kraft Dinner (5x200g)": "8.99",
+      "Minute Rice": "4.99",
+      "Heinz Tomato Ketchup (750ml-1L)": "5.99"
+    },
+    "beverages": {
+      "Tropicana Refrigerated Juice or Earth's Own Beverages": "4.99",
+      "Eska Natural Spring Water (24x500ml)": "4.99",
+      "Red Bull Energy Drink (4x250ml)": "8.99",
+      "Fiji Artesian Water (1L)": "3.49",
+      "Coca-Cola or Canada Dry Soft Drinks (8x300ml, 6x710ml)": "6.99",
+      "Pepsi Soft Drinks (12x355ml)": "7.99"
+    },
+    "snacks": {
+      "Ruffles, Doritos or Cheetos Snacks": "4.99",
+      "Christie Cookies or Crackers, Cheez-It, Townhouse, Crispers, Bits & Bites": "3.99",
+      "Miss Vickie's Chips": "4.99",
+      "Pringles Party Size": "3.99",
+      "Orville Redenbacher Popping Corn": "3.99",
+      "Leclerc Go Pure Cereal Bars": "3.99"
+    },
+    "meat_and_seafood": {
+      "Fresh Chicken Thighs or Drumsticks (8.80/kg)": "3.99",
+      "Maple Leaf Prime Boneless Skinless Chicken Breast (5.99/lb)": "13.21",
+      "Fresh Pork Side Ribs (5.38/kg)": "2.99",
+      "Cooked Pacific White Shrimp (500g)": "9.99",
+      "Fresh Rainbow Trout or Tilapia Fillets (9.99/lb)": "2.21"
+    },
+    "dairy_and_cheese": {
+      "Lactantia Cream (473ml-1L)": "3.99",
+      "Activia, Silk or Two Good Yogurt": "4.99",
+      "Saputo Mozzarellissima (1kg)": "15.99",
+      "Selection Cream Cheese (227-250g)": "3.49"
+    },
+    "produce": {
+      "Seedless Cucumbers": "1.44",
+      "Greenbelt Organic Greens (142g)": "2.44",
+      "Campari Tomatoes (1lb)": "3.99",
+      "Whole White Mushrooms (227g)": "2.99",
+      "Raspberries (170g)": "3.99",
+      "Blackberries (170g)": "3.99",
+      "Kiwi Baskets (600g)": "4.99",
+      "Gala or Fuji Apples (4.39/kg)": "1.99"
+    },
+    "snacks_and_treats": {
+      "Lindt or Ferrero Rocher Chocolate Bars (50-100g)": "3.99",
+      "Quaker Chewy Bars (120-156g)": "2.99",
+      "Selection Snacks, Veggie Sticks or Irresistibles Popcorn": "3.99",
+      "Takis (260-280g)": "4.99"
+    }
+  },
+  "notes": {
+    "membership": "Some prices require Moi Rewards membership card",
+    "tax_break": "TPS/GST tax break applies to selected items",
+    "availability": "Prices and availability may vary by location"
+  }
+}
