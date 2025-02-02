@@ -29,7 +29,7 @@ const DiscountedItem: React.FC<DiscountedItemProps> = ({ name, price, store, ima
                 <div className="capitalize flex flex-row items-center justify-center space-x-2">
                     <p>Price:</p>
                     
-                    <p>{price}</p>
+                    <p className="text-red-500">${price}</p>
                 </div>
             </div>
         </div>
