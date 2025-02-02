@@ -16,6 +16,7 @@
     "conuhacks-frontend": "file:",
     "cors": "^2.8.5",
     "localforage": "^1.10.0",
+    "lucide": "^0.474.0",
     "lucide-react": "^0.474.0",
     "match-sorter": "^8.0.0",
     "react": "^18.3.1",

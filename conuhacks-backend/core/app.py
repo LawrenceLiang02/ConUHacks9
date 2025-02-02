@@ -69,6 +69,32 @@ def get_recipes_from_ingredients():
     except requests.exceptions.RequestException as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/recipes/getRecipesFromIngredientsForRecommendations', methods=['GET'])
+def get_recipes_from_ingredients_recommendations():
+    try:
+        ingredients = load_fridge()
+        print(ingredients)  # Get ingredients from query params
+        if not ingredients:
+            return jsonify({'error': 'No ingredients provided'}), 400
+
+        ingredients_string = ', '.join(ingredient['name'] for ingredient in ingredients)
+        
+        url = 'https://api.spoonacular.com/recipes/findByIngredients'
+        params = {
+            'apiKey': API_KEY,
+            'ingredients': ingredients_string,
+            'number':10,
+            'ranking': 1,
+            'ignorePantry': True
+        }
+        response = requests.get(url, params=params)
+        response.raise_for_status()
+
+        save_recipes(response.json())
+        return jsonify(response.json())
+    except requests.exceptions.RequestException as e:
+        return jsonify({'error': str(e)}), 500
+
 def load_recipes():
     if os.path.exists(RECIPES_FILE):
         with open(RECIPES_FILE, "r") as f:
@@ -105,6 +131,33 @@ def get_recipe_information(recipe_id):
             return jsonify({'error': str(e)}), 500
     else:
         return jsonify({"error": "Recipe not found"}), 404
+
+@app.route('/recipes/getBulkRecipeInformation', methods=['GET'])
+def get_bulk_recipe_information():
+    try:
+        # Get recipe IDs from query parameter
+        # Example: /recipes/getBulkRecipeInformation?ids=123,456,789
+        recipe_ids = request.args.get('ids', '')
+        
+        if not recipe_ids:
+            return jsonify({"error": "No recipe IDs provided"}), 400
+            
+        # Make API call to get bulk recipe information
+        url = 'https://api.spoonacular.com/recipes/informationBulk'
+        params = {
+            'apiKey': API_KEY,
+            'ids': recipe_ids  # The API expects comma-separated IDs
+        }
+        
+        response = requests.get(url, params=params)
+        response.raise_for_status()
+        
+        # Return the detailed recipe information for all requested recipes
+        return jsonify(response.json())
+        
+    except requests.exceptions.RequestException as e:
+        return jsonify({'error': str(e)}), 500
+
 
 def load_fridge(filename="fridge.txt"):
     try:
