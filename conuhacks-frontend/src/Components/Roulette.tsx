@@ -1,29 +1,89 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";  // Import useParams
 import { motion } from "framer-motion";
-
-const segments = ["🍕 Pizza", "🍔 Burger", "🍣 Sushi", "🥗 Salad", "🌮 Taco", "🍩 Donut", "🍜 Ramen", "🍎 Apple"];
+import RecommendationCardComponent from "./RecommendationCardComponent";
 
 const getRandomRotation = () => {
-  const rounds = Math.floor(Math.random() * 3) + 6; // 6 to 8 full spins
-  const randomAngle = Math.floor(Math.random() * 45); // Random stopping angle
+  const rounds = Math.floor(Math.random() * 3) + 6;
+  const randomAngle = Math.floor(Math.random() * 45);
   return rounds * 360 + randomAngle;
 };
 
 const colors = [
-  "#F28D35", // Pizza (Orange)
-  "#6E4B3A", // Burger (Brown)
-  "#2E8B57", // Sushi (Green)
-  "#76C7A1", // Salad (Light Green)
-  "#F1A92E", // Taco (Yellow-Orange)
-  "#FAD02C", // Donut (Yellow)
-  "#8D8D8D", // Ramen (Gray)
-  "#D3F8E2", // Apple (Light Green)
+  "#F28D35", "#6E4B3A", "#2E8B57", "#76C7A1",
+  "#F1A92E", "#FAD02C", "#8D8D8D", "#D3F8E2",
 ];
 
 const Roulette = () => {
+  const { lobbyId } = useParams();  // Get lobbyId from the URL
   const [isSpinning, setIsSpinning] = useState(false);
   const [rotation, setRotation] = useState(0);
-  const [result, setResult] = useState("");
+  const [result, setResult] = useState(null);
+  const [recipes, setRecipes] = useState([]);
+  const [restrictions, setRestrictions] = useState(new Set());
+
+  useEffect(() => {
+    if (!lobbyId) return;
+
+    fetch(`http://localhost:5000/get-participants/${lobbyId}`)
+      .then(response => response.json())
+      .then(data => {
+        if (!data.participants) return;
+
+        const allRestrictions = new Set();
+        data.participants.forEach(participant => {
+          participant.allergies?.forEach(allergy => allRestrictions.add(allergy.toLowerCase()));
+          participant.dietaryRestrictions?.forEach(restriction => allRestrictions.add(restriction.toLowerCase()));
+        });
+
+        setRestrictions(allRestrictions);
+      })
+      .catch(error => console.error("Error fetching participants:", error));
+  }, [lobbyId]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/recipes/getRecipesFromIngredientsForRecommendations")
+      .then(response => response.json())
+      .then(initialData => {
+        const recipesData = Array.isArray(initialData) ? initialData : initialData.results || [];
+        const ids = recipesData.map(recipe => recipe.id).join(",");
+
+        if (!ids) {
+          console.error("No recipe IDs found in initial data");
+          return;
+        }
+
+        fetch(`http://localhost:5000/recipes/getBulkRecipeInformation?ids=${ids}`)
+          .then(response => response.json())
+          .then(bulkData => {
+            if (Array.isArray(bulkData)) {
+              const mainCourseRecipes = bulkData.filter(recipe =>
+                recipe.dishTypes?.includes("main course")
+              );
+
+              const filteredRecipes = mainCourseRecipes.filter(recipe =>
+                !recipe.extendedIngredients?.some(ingredient =>
+                  restrictions.has(ingredient.name.toLowerCase())
+                )
+              );
+
+              setRecipes(filteredRecipes.map(recipe => ({
+                id: recipe.id || 0,
+                title: recipe.title || "No Title",
+                imageUrl: recipe.image || "placeholder_image",
+                dishTypes: recipe.dishTypes || [],
+                ingredients: recipe.extendedIngredients
+                  ? recipe.extendedIngredients.map(ing => ing.name)
+                  : []
+              })));
+            } else {
+              console.error("Bulk API response is not an array:", bulkData);
+            }
+          })
+          .catch(error => console.error("Error fetching bulk recipe information:", error));
+      })
+      .catch(error => console.error("Error fetching initial recipes:", error));
+  }, [restrictions]);
 
   const spinWheel = () => {
     if (isSpinning) return;
@@ -32,11 +92,12 @@ const Roulette = () => {
     setRotation(newRotation);
 
     setTimeout(() => {
-      const stoppingAngle = newRotation % 360;
-      const selectedIndex = Math.floor(stoppingAngle / 45);
-      setResult(segments[selectedIndex]);
+      if (recipes.length > 0) {
+        const randomRecipe = recipes[Math.floor(Math.random() * recipes.length)];
+        setResult(randomRecipe);
+      }
       setIsSpinning(false);
-    }, 5000); // Match animation duration
+    }, 5000);
   };
 
   return (
@@ -44,7 +105,7 @@ const Roulette = () => {
       <div className="relative w-64 h-64 flex items-center justify-center">
         <motion.div
           animate={{ rotate: rotation }}
-          transition={{ duration: 5, ease: "easeOut" }} // Slows down gradually
+          transition={{ duration: 5, ease: "easeOut" }}
           className="w-full h-full rounded-full border-4 border-gray-900 flex items-center justify-center shadow-xl"
         >
           <div
@@ -60,12 +121,17 @@ const Roulette = () => {
       </div>
       <button
         onClick={spinWheel}
-        disabled={isSpinning}
+        disabled={isSpinning || recipes.length === 0}
         className="bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-md disabled:bg-gray-400"
       >
         {isSpinning ? "Spinning..." : "Spin 🎲"}
       </button>
-      {result && <p className="text-lg font-semibold text-gray-800">Result: {result}</p>}
+      {result && (
+        <div className="result-container">
+          <p className="text-2xl font-semibold">Your Meal:</p>
+          <RecommendationCardComponent {...result} />
+        </div>
+      )}
     </div>
   );
 };

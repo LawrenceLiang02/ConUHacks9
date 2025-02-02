@@ -355,7 +355,7 @@ const DietaryForm: React.FC = () => {
 
 <div className="w-full mt-8">
 <KitchenRoles />
-<div className="flex justify-around items-center min-h-screen ">
+<div className="flex justify-center items-center min-h-screen ">
     <Roulette />
   </div>
 </div>
