@@ -52,7 +52,7 @@ export default function Home() {
             <div className='flex flex-row'>
                <p className='w-full text-2xl font-semibold'>Our recommendations</p>
 
-                <Link to="/" className='w-full h-auto flex flex-row justify-end py-2'>
+                <Link to="/recommendations" className='w-full h-auto flex flex-row justify-end py-2'>
                     <p className=' text-blue-400 hover:scale-[105%] hover:underline'>
                         More recipes
                     </p>

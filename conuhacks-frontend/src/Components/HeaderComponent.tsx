@@ -16,13 +16,13 @@ function HeaderComponent() {
       <div className="flex flex-row justify-end bg-[#5ba47b] px-14 py-6 space-x-12">
         <Link to="/" className="">
           <button className="button-default bg-white py-2 px-8 rounded-lg shadow-lg">
-            <p className="uppercase font-semibold text-lg">Join Lobby</p>
+            <p className="uppercase font-semibold text-lg">Join Party</p>
           </button>
         </Link>
 
         <Link to="/create" className="">
           <button className="button-default bg-white py-2 px-8 rounded-lg shadow-lg">
-            <p className="uppercase font-semibold text-lg">Create Lobby</p>
+            <p className="uppercase font-semibold text-lg">Create Party</p>
           </button>
         </Link>
       </div>

@@ -60,7 +60,7 @@ export default function Recommendation() {
         <p className='w-full text-2xl font-semibold'>Our recommendations</p>
         <Link to="/" className='w-full h-auto flex flex-row justify-end py-2'>
           <p className='text-blue-400 hover:scale-[105%] hover:underline'>
-            More recipes
+            Go Back Home
           </p>
         </Link>
       </div>
