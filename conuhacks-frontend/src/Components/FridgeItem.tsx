@@ -9,7 +9,6 @@ interface FridgeItemProps {
 }
 
 const FridgeItemComponent: React.FC<FridgeItemProps> = ({ name, quantity, imageUrl }) => {
-    const navigate = useNavigate();
     const handleDelete = async () => {
         try {
             const response = await fetch("http://localhost:5000/recipes/deleteFridgeItem", {
